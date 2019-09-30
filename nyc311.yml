@@ -1,0 +1,14 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: http://192.168.1.156:8080
+functions:
+  gofunction:
+    lang: go
+    handler: ./nyc311
+    image: joatmon08/nyc311
+    environment:
+      POSTGRES_HOST: nyc311-database-postgresql
+      POSTGRES_USER: secret_user
+      POSTGRES_PASSWORD: secret_password
+      POSTGRES_DATABASE: nyc

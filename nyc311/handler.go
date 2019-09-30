@@ -2,11 +2,11 @@ package function
 
 import (
 	"fmt"
-	"strings"
 	"github.com/hashicorp/go-hclog"
 	"github.com/jmoiron/sqlx"
-	"github.com/nicholasjackson/env"
 	_ "github.com/lib/pq"
+	"github.com/nicholasjackson/env"
+	"strings"
 )
 
 var logger hclog.Logger
