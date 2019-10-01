@@ -8,6 +8,7 @@ job "nyc311" {
       driver = "docker"
       config {
         image = "joatmon08/nyc311-database"
+        hostname = "nyc311-db.service.consul"
 
         port_map {
           http = 5432
@@ -29,7 +30,9 @@ job "nyc311" {
       }
 
       service {
+        name = "nyc311-db"
         port = "http"
+        tags = ["nyc311", "db"]
 
         check {
           type     = "script"

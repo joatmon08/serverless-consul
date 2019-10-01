@@ -1,8 +1,17 @@
 openfaas:
 	(cd faas-nomad && nomad run ./nomad_job_files/faas.hcl)
 	(cd faas-nomad && nomad run ./nomad_job_files/monitoring.hcl)
-	open http://localhost:3000
 
 db:
-	(cd database && docker build -t joatmon08/nyc311-database .)
-	docker run -d -p 5432:5432 -e POSTGRES_USER=secret_user -e POSTGRES_PASSWORD=secret_password -e POSTGRES_DB=nyc joatmon08/nyc311-database
+	nomad run ./nomad_job_files/database.hcl
+
+function:
+	faas-cli build -yaml nyc311.yml
+	faas-cli push -yaml nyc311.yml
+	faas-cli deploy -yaml nyc311.yml
+
+clean:
+	#nomad job stop -purge OpenFaaS-nyc311-halloween
+	nomad job stop -purge nyc311
+	nomad job stop -purge faas-nomadd
+	nomad job stop -purge faas-monitoring
