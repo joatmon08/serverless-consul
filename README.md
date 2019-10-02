@@ -32,6 +32,9 @@ We can meet this compliance requirment with a few solutions:
 1. API Authorization (tokens)
 1. Intent-based networking, using service mesh
 
+![Production and development databases, with firewall, network, API, and
+intent-based networking solutions.](images/solution.png)
+
 Let's examine intent-based networking to prevent a non-production function from
 access production data!
 
