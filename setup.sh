@@ -55,12 +55,19 @@ sudo mkdir -p $NOMADDIR
 sudo chmod 755 $NOMADDIR
 
 # Docker
-distro=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
-sudo apt-get install -y apt-transport-https ca-certificates gnupg2 
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/${distro} $(lsb_release -cs) stable"
+sudo apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
 sudo apt-get update
-sudo apt-get install -y docker-ce
+sudo apt-get install -y   docker-ce docker-ce-cli containerd.io
 
 # Install CNI Plugins
 curl -L -o cni-plugins.tgz https://github.com/containernetworking/plugins/releases/download/v0.8.1/cni-plugins-linux-amd64-v0.8.1.tgz
@@ -68,11 +75,12 @@ sudo mkdir -p /opt/cni/bin
 sudo tar -C /opt/cni/bin -xzf cni-plugins.tgz
 
 # Clone repository with configurations
-git clone https://github.com/joatmon08/serverless-consul.git
+git clone --recurse-submodules https://github.com/joatmon08/serverless-consul.git
 
 # Start Nomad and Consul
-source ./serverless-consul/faas-nomad/startNomad.sh
+cd serverless-consul/faas-nomad
+sudo ./startNomad.sh
 
 # Deploy OpenFaaS
-nomad run serverless-consul/faas-nomad/nomad_job_files/faas.hcl
-nomad run serverless-consul/faas-nomad/nomad_job_files/monitoring.hcl
+nomad run nomad_job_files/faas.hcl
+nomad run nomad_job_files/monitoring.hcl
