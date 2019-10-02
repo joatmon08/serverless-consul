@@ -71,7 +71,7 @@ sudo tar -C /opt/cni/bin -xzf cni-plugins.tgz
 git clone https://github.com/joatmon08/serverless-consul.git
 
 # Start Nomad and Consul
-source serverless-consul/faas-nomad/startNomad.sh
+source ./serverless-consul/faas-nomad/startNomad.sh
 
 # Deploy OpenFaaS
 nomad run serverless-consul/faas-nomad/nomad_job_files/faas.hcl
