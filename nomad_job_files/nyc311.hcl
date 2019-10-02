@@ -38,7 +38,7 @@ job "nyc311-halloween" {
         "POSTGRES_PASSWORD" = "secret_password"
         "POSTGRES_DATABASE" = "nyc"
         "POSTGRES_HOST" = "localhost"
-        "fprocess" = "./handler"
+        "fprocess" = "./nyc311"
       }
     }
   }
