@@ -7,6 +7,10 @@ job "nyc311-halloween" {
 
     network {
       mode  = "bridge"
+      port "http" {
+         static = 8080
+         to     = 8080
+      }
     }
 
     service {
@@ -30,7 +34,6 @@ job "nyc311-halloween" {
       driver = "docker"
       config {
         image = "joatmon08/nyc311"
-        dns_servers = ["192.168.1.156"]
       }
 
       env {
@@ -38,7 +41,7 @@ job "nyc311-halloween" {
         "POSTGRES_PASSWORD" = "secret_password"
         "POSTGRES_DATABASE" = "nyc"
         "POSTGRES_HOST" = "127.0.0.1"
-        "fprocess" = "./nyc311"
+        "fprocess" = "./handler"
       }
     }
   }

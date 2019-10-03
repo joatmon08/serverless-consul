@@ -81,6 +81,8 @@ git clone --recurse-submodules https://github.com/joatmon08/serverless-consul.gi
 cd serverless-consul/faas-nomad
 sudo ./startNomad.sh
 
+sleep 30
+
 # Deploy OpenFaaS
 nomad run nomad_job_files/faas.hcl
 nomad run nomad_job_files/monitoring.hcl
