@@ -2,3 +2,4 @@ template/*
 !template/go
 build
 .vagrant
+ubuntu-xenial-*-console.log

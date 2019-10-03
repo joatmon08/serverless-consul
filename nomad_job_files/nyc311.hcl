@@ -8,14 +8,14 @@ job "nyc311-halloween" {
     network {
       mode  = "bridge"
       port "http" {
-         static = 8080
+         static = 30000
          to     = 8080
       }
     }
 
     service {
       name = "nyc311-halloween"
-      port = 8080
+      port = 30000
       tags = ["nyc311", "halloween"]
 
       connect {
