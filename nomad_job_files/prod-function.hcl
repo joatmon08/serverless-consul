@@ -1,8 +1,8 @@
-job "nyc311-halloween" {
+job "nyc311-halloween-prod" {
   datacenters = ["dc1"]
   type = "service"
 
-  group "nyc311-halloween" {
+  group "nyc311-halloween-prod" {
     count = 1
 
     network {
@@ -14,15 +14,15 @@ job "nyc311-halloween" {
     }
 
     service {
-      name = "nyc311-halloween"
+      name = "nyc311-halloween-prod"
       port = 30000
-      tags = ["nyc311", "halloween"]
+      tags = ["nyc311", "halloween", "prod"]
 
       connect {
         sidecar_service {
           proxy {
             upstreams {
-              destination_name = "nyc311-db"
+              destination_name = "nyc311-db-prod"
               local_bind_port = 5432
             }
           }
@@ -30,7 +30,7 @@ job "nyc311-halloween" {
       }
     }
 
-    task "nyc311-halloween" {
+    task "nyc311-halloween-prod" {
       driver = "docker"
       config {
         image = "joatmon08/nyc311"

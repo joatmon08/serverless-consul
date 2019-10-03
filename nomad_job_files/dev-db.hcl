@@ -1,8 +1,8 @@
-job "nyc311-db" {
+job "nyc311-db-dev" {
   datacenters = ["dc1"]
   type = "service"
 
-  group "nyc311-db" {
+  group "nyc311-db-dev" {
     count = 1
 
     network {
@@ -10,9 +10,9 @@ job "nyc311-db" {
     }
 
     service {
-      name = "nyc311-db"
+      name = "nyc311-db-dev"
       port = 5432
-      tags = ["nyc311", "db"]
+      tags = ["nyc311", "db", "dev"]
 
       connect {
         sidecar_service {}
