@@ -40,6 +40,31 @@ access production data!
 
 ## Demo
 
+### Pre-Requisites
+
+- Vagrant. The demo requires a Linux machine so CNI plugins work for Nomad.
+
+### Instructions
+
 1. Start up a Vagrant box with all of the dependencies installed. `vagrant up`
 1. Open Consul UI. `open http://192.168.50.5:8500`
 1. Open Nomad UI. `open http://192.168.50.5:4646`
+1. Get into the Vagrant box. `vagrant ssh`
+1. Deploy the databases and the functions.
+   ```shell
+   cd serverless-consul
+   nomad run nomad_job_files/dev-db.hcl
+   nomad run nomad_job_files/prod-db.hcl
+   nomad nomad_job_files/prod-db.hcl
+   ```
+1. You should see the function and the two databases in Consul and Nomad.
+1. The function will access the development database by default. Run
+   `curl 10.0.2.15:8080/function/nyc311-halloween-prod -d 'Manhattan'` will
+   yield the number of complaints in Manhattan.
+1. This is not allowed! Let's deny the traffic from production function to
+   development database by adding an intention.
+
+### Clean-Up
+```shell
+vagrant destroy --force
+```

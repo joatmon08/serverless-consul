@@ -22,7 +22,7 @@ job "nyc311-halloween-prod" {
         sidecar_service {
           proxy {
             upstreams {
-              destination_name = "nyc311-db-prod"
+              destination_name = "nyc311-db-dev"
               local_bind_port = 5432
             }
           }

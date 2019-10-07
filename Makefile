@@ -25,3 +25,6 @@ clean:
 clean-all: clean
 	kill -9 $(ps ax | grep consul | grep -v grep)
 	kill -9 $(ps ax | grep nomad | grep -v grep)
+
+test:
+	curl 10.0.2.15:8080/function/nyc311-halloween-prod -d 'Manhattan'
